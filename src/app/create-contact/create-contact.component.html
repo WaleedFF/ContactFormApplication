@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 pt-2 pb-2">
+        <h4 *ngIf="hideButton">Create Contact</h4>
+        <h4 *ngIf="!hideButton">Contact Detail</h4>
+    </div>
+</div>
+
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" id="first_name" formControlName="firstName"
+                    placeholder="First Name">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="second_name">Second Name</label>
+                <input type="text" class="form-control" id="second_name" formControlName="lastName"
+                    placeholder="Second Name">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="primary_contact">Primary Contact</label>
+                <input type="text" class="form-control" id="primary_contact" formControlName="primaryPhoneNumber"
+                    placeholder="Primary Contact">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 d-flex align-items-center mt-3">
+            <button *ngIf="hideButton" type="button" class="btn btn-primary" (click)="addSecondaryPhoneNumber()">Add
+                Secondary</button>
+        </div>
+    </div>
+    <div *ngIf="secondaryContactCheck" class="row">
+        <div formArrayName="secondaryPhoneNumber" class="col-md-6 col-lg-6 col-sm-12 col-xs-12"
+            *ngFor="let contact of secondaryPhoneNumber.controls; let i=index">
+            <!-- The repeated contact template -->
+            <div class="form-group">
+                <label for="contact-{{ i + 1 }}">Secondary Contact {{i+1}}</label>
+                <div class="d-flex">
+                    <input class="form-control" id="contact-{{ i + 1 }}" type="text"
+                        placeholder="Secondary Contact {{i + 1}}" formControlName={{i}}>
+                    <button *ngIf="hideButton" (click)="removeField(i)" class="btn btn-danger ml-1">-</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" formControlName="emailAddress"
+                    placeholder="Email Address">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth</label>
+                <input type="date" class="form-control" id="date_of_birth" formControlName="dob"
+                    placeholder="Date of Birth">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="text" class="form-control" id="longitude" formControlName="longitude"
+                    placeholder="Longitude">
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="text" class="form-control" id="latitude" formControlName="latitude" placeholder="Latitude">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" formControlName="address" placeholder="Address">
+            </div>
+        </div> 
+    </div>
+    <button *ngIf="hideButton" type="submit" class="btn btn-success" [disabled]="!contactForm.valid">Submit</button>
+</form>
