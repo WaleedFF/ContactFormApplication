@@ -12,13 +12,16 @@
                 <label for="first_name">First Name</label>
                 <input type="text" class="form-control" id="first_name" formControlName="firstName"
                     placeholder="First Name">
+                    <span class="text-danger" *ngIf="contactForm.get('firstName').touched && contactForm.get('firstName').hasError('required')">First name is required </span>
+            
             </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             <div class="form-group">
-                <label for="second_name">Second Name</label>
+                <label for="second_name">Last Name</label>
                 <input type="text" class="form-control" id="second_name" formControlName="lastName"
-                    placeholder="Second Name">
+                    placeholder="Last Name">
+                    <span class="text-danger" *ngIf="contactForm.get('lastName').touched && contactForm.get('lastName').hasError('required')">Last name is required </span>
             </div>
         </div>
     </div>
@@ -28,6 +31,10 @@
                 <label for="primary_contact">Primary Contact</label>
                 <input type="text" class="form-control" id="primary_contact" formControlName="primaryPhoneNumber"
                     placeholder="Primary Contact">
+                    <span class="text-danger" *ngIf="contactForm.get('primaryPhoneNumber').touched && contactForm.get('primaryPhoneNumber').hasError('required')">Phone number is required </span>
+                    <span class="text-danger" *ngIf="contactForm.get('primaryPhoneNumber').touched && contactForm.get('primaryPhoneNumber').hasError('pattern')">Enter numbers only </span>
+                    <span class="text-danger" *ngIf="contactForm.get('primaryPhoneNumber').touched && contactForm.get('primaryPhoneNumber').hasError('minlength')">Minimum 3 Characters </span>
+                    <span class="text-danger" *ngIf="contactForm.get('primaryPhoneNumber').touched && contactForm.get('primaryPhoneNumber').hasError('maxlength')">Max 11 Characters </span>
             </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 d-flex align-items-center mt-3">
@@ -46,6 +53,7 @@
                         placeholder="Secondary Contact {{i + 1}}" formControlName={{i}}>
                     <button *ngIf="hideButton" (click)="removeField(i)" class="btn btn-danger ml-1">-</button>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -55,6 +63,7 @@
                 <label for="email">Email Address</label>
                 <input type="email" class="form-control" id="email" formControlName="emailAddress"
                     placeholder="Email Address">
+                    <span class="text-danger" *ngIf="contactForm.get('emailAddress').touched && contactForm.get('emailAddress').hasError('email')">Enter valid email</span>
             </div>
         </div>
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">

@@ -14,12 +14,12 @@ export class CreateContactComponent implements OnInit {
   longitudePosition = ''
   latitudePosition = ''
   contactsList: FormGroup[] = []
-  contactForm = this.fb.group({
+  contactForm:any = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    primaryPhoneNumber: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(11)]],
+    primaryPhoneNumber: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(11),Validators.pattern("^[0-9]*$")]],
     secondaryPhoneNumber: this.fb.array([]),
-    emailAddress: ['', Validators.required],
+    emailAddress: ['', Validators.email],
     dob: ['', Validators.required],
     address: ['', Validators.required],
     longitude: [''],
@@ -86,7 +86,7 @@ export class CreateContactComponent implements OnInit {
 
   addSecondaryPhoneNumber() {
     this.secondaryContactCheck = true;
-    this.secondaryPhoneNumber.push(this.fb.control(''));
+    this.secondaryPhoneNumber.push(this.fb.control('',[Validators.required, Validators.minLength(3),Validators.maxLength(11),Validators.pattern("^[0-9]*$")]));
   }
 
   removeField(index: number) {
